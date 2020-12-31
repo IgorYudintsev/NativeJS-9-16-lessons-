@@ -11,22 +11,38 @@ import {
   CurrencyReducersTypes,
 } from '../../redux/actions';
 
+// т.к. мы переписываем mapDispatchToProps-то комментим, и пишем по новой
+// interface ICurrencyProps extends CurrencyState {
+//   setCurrencyAmount: (amountOfBYN: string, amountOfCurrency: string) => void;
+//   setAction: (isBuying: boolean) => void;
+//   changeCurrency: (currency: string) => void;
+// }
+
+// по новой, вставляем сюда наши криэйторы.В этом случае interface-это тип, но как понятие он значительно шире
+// интерфейсы можно расширять, типы нет. Здесь у нас interface ICurrencyProps наследуется от обычного типа
 interface ICurrencyProps extends CurrencyState {
-  setCurrencyAmount: (amountOfBYN: string, amountOfCurrency: string) => void;
-  setAction: (isBuying: boolean) => void;
-  changeCurrency: (currency: string) => void;
+  ChangeCurrencyFieldAC: Function//просто указываем Function-т.е. обльше про нее ничего не знаем
+  ChangeActionAC: Function
+  changeCurrentCurrencyAC: Function
 }
 
-const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
-  currencies,
-  currentCurrency,
-  isBuying,
-  amountOfBYN,
-  amountOfCurrency,
-  setCurrencyAmount,
-  setAction,
-  changeCurrency,
-}) => {
+
+const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = (
+  {
+    currencies,
+    currentCurrency,
+    isBuying,
+    amountOfBYN,
+    amountOfCurrency,
+    //т.к. этих функций нет
+    // setCurrencyAmount,
+    // setAction,
+    // changeCurrency,
+    // вместо них новые функции:
+    ChangeCurrencyFieldAC,
+    ChangeActionAC,
+    changeCurrentCurrencyAC,
+  }) => {
   //выбираются квадратики USD EUR RUR
   let currencyRate: number = 0;
   const currenciesName = currencies.map((currency) => {
@@ -45,26 +61,32 @@ const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = ({
       const trigger: string = e.currentTarget.dataset.currency;
       if (trigger === 'byn') { //если 'byn' -поле ввода
         if (value === '') {    //и если пусто в поле- то и передаем пусто
-          setCurrencyAmount(value, value);
+          // setCurrencyAmount(value, value);     //было
+          ChangeCurrencyFieldAC(value, value);
         } else {  //если не пусто, то в одном поле остается введенное значение, а в другом конвертер
           //toFixed-округляет копейки, но возвращает стригу-поэтому +Number->сначала value-в число, а затем рузультат округления в число
-          setCurrencyAmount(value, (+Number(value).toFixed(2) / currencyRate).toFixed(2));
+          // setCurrencyAmount(value, (+Number(value).toFixed(2) / currencyRate).toFixed(2));  //было
+          ChangeCurrencyFieldAC(value, (+Number(value).toFixed(2) / currencyRate).toFixed(2));
         }
       } else { //второе полу ввода: USD,EUR,RUR
         if (value === '') {
-          setCurrencyAmount(value, value);//если не пусто...то пусть будет пусто
+          // setCurrencyAmount(value, value);//если не пусто...то пусть будет пусто     //было
+          ChangeCurrencyFieldAC(value, value);//если не пусто...то пусть будет пусто
         } else {//если не пусто, то УМНОЖАЕМ
-          setCurrencyAmount((+Number(value).toFixed(2) * currencyRate).toFixed(2), value);
+          // setCurrencyAmount((+Number(value).toFixed(2) * currencyRate).toFixed(2), value);       //было
+          ChangeCurrencyFieldAC((+Number(value).toFixed(2) * currencyRate).toFixed(2), value);
         }
       }
     }
   };
   const changeAction = (e: React.MouseEvent<HTMLSpanElement>) => {//кнопки buy, sell
-    e.currentTarget.dataset.action === 'buy' ? setAction(true) : setAction(false);
+    // e.currentTarget.dataset.action === 'buy' ? setAction(true) : setAction(false);      //было
+    e.currentTarget.dataset.action === 'buy' ? ChangeActionAC(true) : ChangeActionAC(false);
   };
 
   const changeCurrentCurrency = (e: React.MouseEvent<HTMLLIElement>) => {
-    e.currentTarget.dataset.currency && changeCurrency(e.currentTarget.dataset.currency);
+    // e.currentTarget.dataset.currency && changeCurrency(e.currentTarget.dataset.currency);     //было
+    e.currentTarget.dataset.currency && changeCurrentCurrencyAC(e.currentTarget.dataset.currency);
     // ели false, то ничего не происходит.
     // и -если справа ок, то выполняется левая часть. Это нужно для скрипта т.к. он не знает что приходит
   };
@@ -95,19 +117,25 @@ const mapStateToProps = (state: IGlobalState) => {
     amountOfCurrency: state.currency.amountOfCurrency,
   };
 };
-// @ts-ignore
-const mapDispatchToProps = (dispatch: Dispatch<CurrencyReducersTypes>) => {
-  return {
-    setCurrencyAmount(amountOfBYN: string, amountOfCurrency: string) {
-      dispatch(ChangeCurrencyFieldAC(amountOfBYN, amountOfCurrency));
-    },
-    setAction(isBuying: boolean) {
-      dispatch(ChangeActionAC(isBuying));
-    },
-    changeCurrency(currency: string) {
-      dispatch(changeCurrentCurrencyAC(currency));
-    },
-  };
-};
-// @ts-ignore
-export const CurrencyExchangeContainer = compose(connect(mapStateToProps, mapDispatchToProps))(CurrencyEContainer);
+//старый синтаксис
+// const mapDispatchToProps = (dispatch: Dispatch<CurrencyReducersTypes>) => {
+//   return {
+//     setCurrencyAmount(amountOfBYN: string, amountOfCurrency: string) {
+//       dispatch(ChangeCurrencyFieldAC(amountOfBYN, amountOfCurrency));
+//     },
+//     setAction(isBuying: boolean) {
+//       dispatch(ChangeActionAC(isBuying));
+//     },
+//     changeCurrency(currency: string) {
+//       dispatch(changeCurrentCurrencyAC(currency));
+//     },
+//   };
+// };
+// export const CurrencyExchangeContainer = compose(connect(mapStateToProps, mapDispatchToProps))(CurrencyEContainer);
+
+//НОВЫЙ синтаксис
+export const CurrencyExchangeContainer = compose(connect(mapStateToProps, {
+  ChangeCurrencyFieldAC,
+  ChangeActionAC,
+  changeCurrentCurrencyAC,
+}))(CurrencyEContainer);
