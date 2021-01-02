@@ -148,7 +148,7 @@
 
 
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { useDispatch } from '../../redux/actions';//теперь берем не из react-Redux а из action.tsx
 //на этой странице больше никаких изменений.
 import CurrencyExchange from '../../components/CurrencyExchange/CurrencyExchange';
@@ -162,22 +162,36 @@ import {
   changeCurrentCurrencyAC,
   CurrencyReducersTypes,
 } from '../../redux/actions';
+import {
+  selectAmountOfBYN,
+  selectAmountOfCurrency,
+  selectCurrencies,
+  selectCurrentCurrency,
+  selectIsBuying,
+} from '../../redux/selectors';
 
 
 // для хуков  внутренка не нужна
 interface ICurrencyProps extends CurrencyState {
 }
 
+// const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = (
+//   {
+//     currencies,
+//     currentCurrency,
+//     isBuying,
+//     amountOfBYN,
+//     amountOfCurrency,
+//   }) => {
 
-const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = (
-  {
-    currencies,
-    currentCurrency,
-    isBuying,
-    amountOfBYN,
-    amountOfCurrency,
-  }) => {
+const CurrencyEContainer: React.FunctionComponent = () => {
   let dispatch = useDispatch();
+  const currencies=useSelector(selectCurrencies);
+  const currentCurrency=useSelector(selectCurrentCurrency);
+  const isBuying=useSelector(selectIsBuying);
+  const amountOfBYN=useSelector(selectAmountOfBYN);
+  const amountOfCurrency=useSelector(selectAmountOfCurrency);
+
   //выбираются квадратики USD EUR RUR
   let currencyRate: number = 0;
   const currenciesName = currencies.map((currency) => {
@@ -253,16 +267,16 @@ const CurrencyEContainer: React.FunctionComponent<ICurrencyProps> = (
   );
 };
 
-// mapStateToProps заменяется хуком useSelector
-const mapStateToProps = (state: IGlobalState) => {
-  return {
-    currencies: state.currency.currencies,
-    currentCurrency: state.currency.currentCurrency,
-    isBuying: state.currency.isBuying,
-    amountOfBYN: state.currency.amountOfBYN,
-    amountOfCurrency: state.currency.amountOfCurrency,
-  };
-};
+// mapStateToProps заменяется хуком useSelector-selectors.tsx
+// const mapStateToProps = (state: IGlobalState) => {
+//   return {
+//     currencies: state.currency.currencies,
+//     currentCurrency: state.currency.currentCurrency,
+//     isBuying: state.currency.isBuying,
+//     amountOfBYN: state.currency.amountOfBYN,
+//     amountOfCurrency: state.currency.amountOfCurrency,
+//   };
+// };
 //старый синтаксис
 // mapDispatchToProps-заменяется хуком useDispatch
 // const mapDispatchToProps = (dispatch: Dispatch<CurrencyReducersTypes>) => {
@@ -288,5 +302,6 @@ const mapStateToProps = (state: IGlobalState) => {
 // }))(CurrencyEContainer);
 
 //НОВЫЙ синтаксис c хуками
-export const CurrencyExchangeContainer = compose(connect(mapStateToProps, {}))(CurrencyEContainer);
+// export const CurrencyExchangeContainer = compose(connect(mapStateToProps, {}))(CurrencyEContainer);
+export default CurrencyEContainer;
 

@@ -1,5 +1,7 @@
 import React from 'react';
-import { CurrencyExchangeContainer } from '../../containers/CurrencyExchangeContainer/CurrencyExchangeContainer';
+//import { CurrencyExchangeContainer } from '../../containers/CurrencyExchangeContainer/CurrencyExchangeContainer';
+import  CurrencyExchangeContainer  from '../../containers/CurrencyExchangeContainer/CurrencyExchangeContainer';
+//поменяли для UseSelector()
 
 // Redux
 // https://tproger.ru/translations/redux-for-beginners/
