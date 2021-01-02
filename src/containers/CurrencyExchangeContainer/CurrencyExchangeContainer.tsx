@@ -163,6 +163,7 @@ import {
   CurrencyReducersTypes,
 } from '../../redux/actions';
 import {
+  selectAll,
   selectAmountOfBYN,
   selectAmountOfCurrency,
   selectCurrencies,
@@ -186,11 +187,13 @@ interface ICurrencyProps extends CurrencyState {
 
 const CurrencyEContainer: React.FunctionComponent = () => {
   let dispatch = useDispatch();
-  const currencies=useSelector(selectCurrencies);
-  const currentCurrency=useSelector(selectCurrentCurrency);
-  const isBuying=useSelector(selectIsBuying);
-  const amountOfBYN=useSelector(selectAmountOfBYN);
-  const amountOfCurrency=useSelector(selectAmountOfCurrency);
+  // const currencies=useSelector(selectCurrencies);
+  // const currentCurrency=useSelector(selectCurrentCurrency);
+  // const isBuying=useSelector(selectIsBuying);
+  // const amountOfBYN=useSelector(selectAmountOfBYN);
+  // const amountOfCurrency=useSelector(selectAmountOfCurrency);
+
+  const{currencies,currentCurrency,isBuying,amountOfBYN,amountOfCurrency}=useSelector(selectAll);
 
   //выбираются квадратики USD EUR RUR
   let currencyRate: number = 0;

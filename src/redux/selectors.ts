@@ -6,3 +6,5 @@ export const selectCurrentCurrency=(state:IGlobalState)=>state.currency.currentC
 export const selectIsBuying=(state:IGlobalState)=>state.currency.isBuying;
 export const selectAmountOfBYN=(state:IGlobalState)=>state.currency.amountOfBYN;
 export const selectAmountOfCurrency=(state:IGlobalState)=>state.currency.amountOfCurrency;
+
+export const selectAll=(state:IGlobalState)=>state.currency;
