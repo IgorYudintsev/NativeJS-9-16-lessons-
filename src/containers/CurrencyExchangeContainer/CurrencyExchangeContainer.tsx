@@ -148,7 +148,9 @@
 
 
 import React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import { useDispatch } from '../../redux/actions';//теперь берем не из react-Redux а из action.tsx
+//на этой странице больше никаких изменений.
 import CurrencyExchange from '../../components/CurrencyExchange/CurrencyExchange';
 import { IGlobalState } from '../../redux/state';
 import { CurrencyState } from '../../redux/currencyReducer';
