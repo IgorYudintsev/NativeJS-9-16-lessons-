@@ -1,8 +1,30 @@
 import React from 'react';
 import { log } from 'util';
 
+
 const Lesson2 = () => {
   console.log('lesson2');
+
+  // Lexical environment
+// http://jsflow.org/docs/lex-env/
+
+//// Closure
+// https://learn.javascript.ru/closure
+// https://developer.mozilla.org/ru/docs/Web/JavaScript/Closures
+// https://medium.com/@stasonmars/%D0%BF%D0%BE%D0%BD%D0%B8%D0%BC%D0%B0%D0%B5%D0%BC-%D0%B7%D0%B0%D0%BC%D1%8B%D0%BA%D0%B0%D0%BD%D0%B8%D1%8F-%D0%B2-javascript-%D1%80%D0%B0%D0%B7-%D0%B8-%D0%BD%D0%B0%D0%B2%D1%81%D0%B5%D0%B3%D0%B4%D0%B0-c211805b6898
+// https://www.youtube.com/watch?v=pahO5XjnfLA
+
+//// Сurrying
+// https://learn.javascript.ru/currying-partials
+// https://medium.com/@stasonmars/%D0%BF%D0%BE%D0%BD%D0%B8%D0%BC%D0%B0%D0%B5%D0%BC-%D0%BA%D0%B0%D1%80%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%B2-javascript-5ec4a1d88827
+
+// Pattern Module
+// https://habr.com/ru/company/ruvds/blog/419997/
+
+// Recursion
+// https://learn.javascript.ru/recursion
+// https://www.youtube.com/watch?v=Kuq6oIN3PH0
+
 //----------------------------------------------------------------------------------------------------------------------
 // Task 01
 // Реализовать функцию sum которая суммирует 2 числа следующим образом sum(3)(6) === 9
@@ -151,11 +173,13 @@ const Lesson2 = () => {
   //    console.log(sum(4,0));
 
 
-  // function factorial(n:number) {
-  //   if (n === 1) return 1;
-  //   return  factorial(n-1)*n;
-  // }
-  // console.log(factorial(5));//120
+  function factorial(n: number) {
+    debugger
+    if (n === 1) return 1;
+      return factorial(n - 1) * n;
+  }
+
+  console.log(factorial(5));//120
 
   // function factorial2(n:number,acc: number) {
   //   if (n === 1) return 1*acc;
@@ -184,30 +208,54 @@ const Lesson2 = () => {
   // console.log(fibonacci(77)); // 5527939700884757
 
   //наоборот от большего к меньшему
-  function fibonacci(n: number) {
-    let first = 0;
-    let second = 1;
-    if (n === 0) return first;
-    if (n === 1) return second;
-    // let count = 2;
-    function inner():number {
-      if (n === 2) return first + second;
-      let temp = first + second;
-      first = second;
-      second = temp;
-      n-=1;
-      return inner()
-    }
-    return inner();
-  }
-  console.log(fibonacci(3)); // 2
-  console.log(fibonacci(7)); // 13
-  console.log(fibonacci(77)); // 5527939700884757
-
+  // function fibonacci(n: number) {
+  //   let first = 0;
+  //   let second = 1;
+  //   if (n === 0) return first;
+  //   if (n === 1) return second;
+  //   // let count = 2;
+  //   function inner():number {
+  //     if (n === 2) return first + second;
+  //     let temp = first + second;
+  //     first = second;
+  //     second = temp;
+  //     n-=1;
+  //     return inner()
+  //   }
+  //   return inner();
+  // }
+  // console.log(fibonacci(3)); // 2
+  // console.log(fibonacci(7)); // 13
+  // console.log(fibonacci(77)); // 5527939700884757
+//
+//    вывод односвязанного
+//   let list = {
+//     value: 1,
+//     next: {
+//       value: 2,
+//       next: {
+//         value: 3,
+//         next: {
+//           value: 4,
+//           next: null
+//         }
+//       }
+//     }
+//   };
+  //  //@ts-ignore
+  //  function recurs(list) {
+  //    console.log(list.value);
+  //       if(list.next){
+  //         return recurs(list.next)
+  //       }
+  //  }
+  //  //@ts-ignore
+  // recurs(list) ;
 
 
   return (<div>'lesson2'</div>);
 };
+
 
 export default Lesson2;
 
