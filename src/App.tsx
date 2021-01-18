@@ -11,8 +11,8 @@ function App() {
     <div className="container">
       {/*<Lesson1/>*/}
       {/*<Lesson2/>*/}
-      <Lesson3/>
-      {/*<Lesson4/>*/}
+      {/*<Lesson3/>*/}
+      <Lesson4/>
     </div>
   );
 }
