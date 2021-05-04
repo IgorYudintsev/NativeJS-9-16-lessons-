@@ -1,6 +1,14 @@
 
-console.log('lesson 4');
+//import axios from 'axios';
 
+//////////////////////////////////////////////////////////////////////
+// console.log('Dimich');
+
+//@ts-ignore
+
+
+
+// console.log('lesson 4');
 // http://latentflip.com/loupe/?code=JC5vbignYnV0dG9uJywgJ2NsaWNrJywgZnVuY3Rpb24gb25DbGljaygpIHsKICAgIHNldFRpbWVvdXQoZnVuY3Rpb24gdGltZXIoKSB7CiAgICAgICAgY29uc29sZS5sb2coJ1lvdSBjbGlja2VkIHRoZSBidXR0b24hJyk7ICAgIAogICAgfSwgMjAwMCk7Cn0pOwoKY29uc29sZS5sb2coIkhpISIpOwoKc2V0VGltZW91dChmdW5jdGlvbiB0aW1lb3V0KCkgewogICAgY29uc29sZS5sb2coIkNsaWNrIHRoZSBidXR0b24hIik7Cn0sIDUwMDApOwoKY29uc29sZS5sb2coIldlbGNvbWUgdG8gbG91cGUuIik7!!!PGJ1dHRvbj5DbGljayBtZSE8L2J1dHRvbj4%3D
 // https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
 
@@ -127,22 +135,22 @@ console.log('lesson 4');
 // show();
 
 
-async function sleep(ms:number) {
- return new Promise(async (res)=>{// говорим что у нас внутри еще одна асинхронная функция
-   await   setTimeout(()=>{ //
-     console.log(ms);
-     res();// меняется состояние промиса
-   },ms*100);
- })
-}
-
-async function show() {
-  await sleep(3);
-  await sleep(2);
-  await sleep(1);
-}
-
-show();
+// async function sleep(ms:number) {
+//  return new Promise(async (res)=>{// говорим что у нас внутри еще одна асинхронная функция
+//    await   setTimeout(()=>{ //
+//      console.log(ms);
+//      res();// меняется состояние промиса
+//    },ms*100);
+//  })
+// }
+//
+// async function show() {
+//   await sleep(3);
+//   await sleep(2);
+//   await sleep(1);
+// }
+//
+// show();
 
 
 // Task 01
